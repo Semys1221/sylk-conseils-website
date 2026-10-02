@@ -10,16 +10,6 @@ export interface ServiceDefinition {
 
 export const SERVICES: ServiceDefinition[] = [
   {
-    id: "supabase",
-    name: "Supabase",
-    category: "auth",
-    description:
-      "Authentification des prospects, stockage des documents clients (Supabase Auth + Storage).",
-    docsUrl: "https://supabase.com/docs",
-    envVars: ["NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY"],
-    testEndpoint: "supabase",
-  },
-  {
     id: "pusher",
     name: "Pusher",
     category: "communication",
@@ -152,20 +142,6 @@ export const ENV_VARS: EnvVarDefinition[] = [
     isPublic: true,
     module: "Salle de Vente",
     example: "montis-media",
-  },
-  {
-    key: "NEXT_PUBLIC_SUPABASE_URL",
-    description: "URL du projet Supabase",
-    isPublic: true,
-    module: "Onboarding",
-    example: "https://xxx.supabase.co",
-  },
-  {
-    key: "NEXT_PUBLIC_SUPABASE_ANON_KEY",
-    description: "Clé anonyme Supabase",
-    isPublic: true,
-    module: "Onboarding",
-    example: "eyJ...",
   },
   {
     key: "NEXT_PUBLIC_POSTHOG_KEY",

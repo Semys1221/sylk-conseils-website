@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import { supabaseAdmin as supabase } from "@/lib/supabase/admin";
 import type { TenantSettings } from "@workspace/shared-types";
+import { getTenantConfig, setTenantConfig } from "@/lib/server-memory-store";
 
 const DEFAULT_SETTINGS: TenantSettings = {
   callSettings: {
@@ -52,35 +52,36 @@ export async function GET(req: Request) {
   const tenantId = searchParams.get("tenant_id");
   if (!tenantId) return NextResponse.json({ error: "tenant_id is required" }, { status: 400 });
 
-  const { data: tenant } = await supabase
-    .from("tenants")
-    .select("config")
-    .eq("tenant_id", tenantId)
-    .single();
+  const tenant = getTenantConfig(tenantId);
 
   const settings: TenantSettings = {
     callSettings: {
       defaultRecipients:
-        (tenant?.config as any)?.callSettings?.defaultRecipients ??
+        (tenant?.callSettings as TenantSettings["callSettings"])?.defaultRecipients ??
         DEFAULT_SETTINGS.callSettings.defaultRecipients,
       discoveryQuestions:
-        (tenant?.config as any)?.callSettings?.discoveryQuestions ??
+        (tenant?.callSettings as TenantSettings["callSettings"])?.discoveryQuestions ??
         DEFAULT_SETTINGS.callSettings.discoveryQuestions,
       screeningLevel:
-        (tenant?.config as any)?.callSettings?.screeningLevel ??
+        (tenant?.callSettings as TenantSettings["callSettings"])?.screeningLevel ??
         DEFAULT_SETTINGS.callSettings.screeningLevel,
     },
     websiteSettings: {
       domain:
-        (tenant?.config as any)?.websiteSettings?.domain ?? DEFAULT_SETTINGS.websiteSettings.domain,
+        (tenant?.websiteSettings as TenantSettings["websiteSettings"])?.domain ??
+        DEFAULT_SETTINGS.websiteSettings.domain,
       orias:
-        (tenant?.config as any)?.websiteSettings?.orias ?? DEFAULT_SETTINGS.websiteSettings.orias,
+        (tenant?.websiteSettings as TenantSettings["websiteSettings"])?.orias ??
+        DEFAULT_SETTINGS.websiteSettings.orias,
       legalMentions:
-        (tenant?.config as any)?.websiteSettings?.legalMentions ??
+        (tenant?.websiteSettings as TenantSettings["websiteSettings"])?.legalMentions ??
         DEFAULT_SETTINGS.websiteSettings.legalMentions,
-      tone: (tenant?.config as any)?.websiteSettings?.tone ?? DEFAULT_SETTINGS.websiteSettings.tone,
+      tone:
+        (tenant?.websiteSettings as TenantSettings["websiteSettings"])?.tone ??
+        DEFAULT_SETTINGS.websiteSettings.tone,
       color:
-        (tenant?.config as any)?.websiteSettings?.color ?? DEFAULT_SETTINGS.websiteSettings.color,
+        (tenant?.websiteSettings as TenantSettings["websiteSettings"])?.color ??
+        DEFAULT_SETTINGS.websiteSettings.color,
     },
   };
 
@@ -92,33 +93,22 @@ export async function PUT(req: Request) {
   if (!tenant_id || !settings)
     return NextResponse.json({ error: "tenant_id and settings are required" }, { status: 400 });
 
-  const { data: tenant } = await supabase
-    .from("tenants")
-    .select("config")
-    .eq("tenant_id", tenant_id)
-    .single();
-
-  const currentConfig = (tenant?.config as Record<string, unknown>) ?? {};
+  const currentConfig = getTenantConfig(tenant_id) ?? {};
   const updatedConfig = {
     ...currentConfig,
     callSettings: {
       ...DEFAULT_SETTINGS.callSettings,
-      ...((currentConfig as any)?.callSettings ?? {}),
+      ...((currentConfig.callSettings as object) ?? {}),
       ...settings.callSettings,
     },
     websiteSettings: {
       ...DEFAULT_SETTINGS.websiteSettings,
-      ...((currentConfig as any)?.websiteSettings ?? {}),
+      ...((currentConfig.websiteSettings as object) ?? {}),
       ...settings.websiteSettings,
     },
   };
 
-  const { error } = await supabase
-    .from("tenants")
-    .update({ config: updatedConfig })
-    .eq("tenant_id", tenant_id);
-
-  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  setTenantConfig(tenant_id, updatedConfig);
 
   if (notify) {
     const section = settings.callSettings ? "call" : "website";

@@ -1,7 +1,5 @@
 "use server";
 
-import { supabaseAdmin } from "@/lib/supabase/admin";
-
 export interface RdvDetail {
   id: string;
   calendly_event_uuid: string;
@@ -22,16 +20,6 @@ export interface RdvDetail {
   session_conversion_argument: string;
 }
 
-export async function getRdvDetail(calendlyEventUuid: string) {
-  const { data, error } = await supabaseAdmin
-    .from("rdv_details")
-    .select("*")
-    .eq("calendly_event_uuid", calendlyEventUuid)
-    .single();
-
-  if (error && error.code !== "PGRST116") {
-    throw new Error(error.message);
-  }
-
-  return data as RdvDetail | null;
+export async function getRdvDetail(_calendlyEventUuid: string) {
+  return null as RdvDetail | null;
 }

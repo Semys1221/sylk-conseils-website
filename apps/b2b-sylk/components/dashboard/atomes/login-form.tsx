@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
+import { setAdminSession } from "@workspace/tenant-ui";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
@@ -29,19 +29,25 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 
     setLoading(true);
 
-    const supabase = createClient();
-    const { error: signInError } = await supabase.auth.signInWithPassword({
-      email: email.toLowerCase(),
-      password,
+    const res = await fetch("/api/admin/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email.toLowerCase(), password }),
     });
 
     setLoading(false);
 
-    if (signInError) {
-      setError(signInError.message);
-    } else {
-      router.push("/admin");
+    if (!res.ok) {
+      const payload = (await res.json().catch(() => ({}))) as { error?: string };
+      setError(payload.error ?? "Connexion impossible");
+      return;
     }
+
+    const { user } = (await res.json()) as {
+      user: { email: string; name: string; createdAt: string };
+    };
+    setAdminSession(user);
+    router.push("/admin");
   };
 
   return (

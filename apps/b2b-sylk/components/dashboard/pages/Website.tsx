@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { TrendingUp } from "lucide-react";
+import Link from "next/link";
+import { FileText, TrendingUp } from "lucide-react";
 import { Bar, BarChart, CartesianGrid, XAxis } from "recharts";
 import { Button } from "@/components/ui/button";
 import { ButtonGroup } from "@/components/ui/button-group";
@@ -52,6 +53,10 @@ export default function Website() {
 
   return (
     <div className="p-6 space-y-6">
+      <Button variant="outline" className="w-full sm:w-auto" render={<Link href="/admin/contenu" />}>
+        <FileText className="size-4" />
+        Éditer le contenu public
+      </Button>
       <div className="grid grid-cols-2 gap-4">
         <Card>
           <CardHeader className="pb-2">

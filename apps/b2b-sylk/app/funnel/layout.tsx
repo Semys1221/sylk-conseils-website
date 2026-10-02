@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { SYLK_BLOB_ORIGIN } from "@/lib/brand-assets";
 import { PostHogProvider } from "@/providers/PostHogProvider";
 import SuspendedPostHogPageView from "@/components/dashboard/atomes/PostHogPageView";
 
@@ -12,7 +13,7 @@ export default function FunnelLayout({ children }: { children: React.ReactNode }
   return (
     <PostHogProvider>
       <link rel="preconnect" href="https://image.mux.com" />
-      <link rel="preconnect" href="https://grzs6rqzvzupoxv9.public.blob.vercel-storage.com" />
+      <link rel="preconnect" href={SYLK_BLOB_ORIGIN} />
       <SuspendedPostHogPageView />
       {children}
     </PostHogProvider>

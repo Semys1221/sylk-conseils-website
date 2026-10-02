@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "motion/react";
 import { useAdminStore, type AdminView } from "@workspace/tenant-ui";
 import { OnboardingOverlay } from "@/components/dashboard/atomes/onboarding-overlay";
 import { useAdminDataStore, type ApiActivityItem } from "@/lib/admin-data-store";
+import { FUNNEL_LOGO_URL } from "@/lib/brand-assets";
 import { Globe, Users, Calendar, TrendingUp } from "lucide-react";
 import {
   Pagination,
@@ -228,7 +229,7 @@ function Accueil() {
           <div className="relative z-10 h-full p-6 flex flex-col items-center justify-center">
             <div className="absolute top-4 left-3 flex items-center gap-2">
               <img
-                src="https://grzs6rqzvzupoxv9.public.blob.vercel-storage.com/stephane/croped%20circle-stepahen.png"
+                src={FUNNEL_LOGO_URL}
                 alt="SYLK"
                 className="w-5 h-5 rounded-full ring-1 ring-white/20"
               />

@@ -2,8 +2,8 @@ import { describe, it, expect } from "vitest";
 import { SERVICES, ENV_VARS } from "../src/lib/services";
 
 describe("Tenant UI - Service Definitions", () => {
-  it("has all 6 services defined", () => {
-    expect(SERVICES).toHaveLength(6);
+  it("has all 5 services defined", () => {
+    expect(SERVICES).toHaveLength(5);
   });
 
   it("includes Pusher for real-time slide sync", () => {
@@ -19,10 +19,8 @@ describe("Tenant UI - Service Definitions", () => {
     expect(daily!.description).toContain("vidéo");
   });
 
-  it("includes Supabase for auth and storage", () => {
-    const supabase = SERVICES.find((s) => s.id === "supabase");
-    expect(supabase).toBeDefined();
-    expect(supabase!.category).toBe("auth");
+  it("includes PostHog for analytics", () => {
+    expect(SERVICES.some((s) => s.id === "posthog")).toBe(true);
   });
 
   it("includes N8N for funnel qualification webhook", () => {

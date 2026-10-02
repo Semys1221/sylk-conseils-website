@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
+import { getAdminSession } from "@workspace/tenant-ui";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -410,17 +410,12 @@ export default function Parametres() {
   const router = useRouter();
 
   useEffect(() => {
-    (async () => {
-      const supabase = createClient();
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-      if (user) {
-        setEmail(user.email ?? "");
-        setCreatedAt(user.created_at ?? "");
-      }
-      setLoading(false);
-    })();
+    const session = getAdminSession();
+    if (session) {
+      setEmail(session.email);
+      setCreatedAt(session.createdAt);
+    }
+    setLoading(false);
   }, []);
 
   const handlePasswordUpdate = useCallback(
@@ -435,15 +430,10 @@ export default function Parametres() {
         return;
       }
       setUpdating(true);
-      const supabase = createClient();
-      const { error } = await supabase.auth.updateUser({ password: newPassword });
       setUpdating(false);
-      if (error) toast.error(error.message);
-      else {
-        toast.success("Mot de passe mis à jour");
-        setNewPassword("");
-        setConfirmPassword("");
-      }
+      toast.info("Le mot de passe admin est défini via la variable d'environnement ADMIN_PIN.");
+      setNewPassword("");
+      setConfirmPassword("");
     },
     [newPassword, confirmPassword]
   );

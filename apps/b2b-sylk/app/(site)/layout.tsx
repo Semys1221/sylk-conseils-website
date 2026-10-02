@@ -18,8 +18,8 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
         <div className={playfair.variable}>
           <link rel="preconnect" href="https://images.unsplash.com" />
           <link rel="dns-prefetch" href="https://images.unsplash.com" />
-          <link rel="preconnect" href="https://grzs6rqzvzupoxv9.public.blob.vercel-storage.com" />
-          <link rel="dns-prefetch" href="https://grzs6rqzvzupoxv9.public.blob.vercel-storage.com" />
+          <link rel="preconnect" href="https://9xk9ufsvv7crsreb.public.blob.vercel-storage.com" />
+          <link rel="dns-prefetch" href="https://9xk9ufsvv7crsreb.public.blob.vercel-storage.com" />
           <SuspendedPostHogPageView />
           <NavbarWrapper />
           <main className="flex-grow">{children}</main>

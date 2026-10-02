@@ -1,0 +1,88 @@
+{
+  "home": {
+    "hero": {
+      "imageLabel": "CABINET SYLK CONSEILS",
+      "founderLine": "Stéphane Lawnicki, Fondateur",
+      "linkedinBadge": "Suivi par +3 000 personnes sur LinkedIn",
+      "titleLine1": "Stratégie patrimoniale",
+      "titleLine2": "et optimisation fiscale",
+      "subtitle": "Une expertise dédiée aux dirigeants, cadres supérieurs et familles souhaitant structurer, sécuriser et transmettre leur patrimoine dans un cadre juridique et fiscal maîtrisé.",
+      "ctaVideo": "Voir la vidéo",
+      "ctaLinkedin": "Découvrir le dirigeant"
+    },
+    "media": {
+      "heroPortraitUrl": "https://9xk9ufsvv7crsreb.public.blob.vercel-storage.com/cms/assets/home/hero-portrait-4k.webp",
+      "expertiseBannerImageUrl": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1600&auto=format&fit=crop",
+      "funnelVideoUrl": "https://9xk9ufsvv7crsreb.public.blob.vercel-storage.com/cms/assets/funnel/video-cgp.mp4",
+      "funnelVideoPosterUrl": "https://image.mux.com/601I74ydXCKONbHE02Sz00NPIYZJNk6usdBL00q77FwUkvw/thumbnail.jpg",
+      "funnelLogoUrl": "https://9xk9ufsvv7crsreb.public.blob.vercel-storage.com/cms/assets/brand/funnel-logo-circle.webp"
+    },
+    "cabinetSection": {
+      "label": "LE CABINET",
+      "title": "Une expertise éprouvée",
+      "paragraph1": "Fondé en 2019, SYLK Conseils accompagne une clientèle de dirigeants, cadres supérieurs et familles dans la gestion et l'optimisation de leur patrimoine.",
+      "paragraph2": "Le cabinet s'appuie sur une équipe de professionnels expérimentés et une méthodologie rigoureuse pour offrir un conseil indépendant et personnalisé.",
+      "cta": "En savoir plus"
+    },
+    "stats": [
+      { "value": "10+", "label": "Années d'expertise" },
+      { "value": "350", "label": "Clients accompagnés" },
+      { "value": "5+", "label": "Classes d'actifs" },
+      { "value": "5.0", "label": "Note moyenne" }
+    ],
+    "expertiseBanner": {
+      "title": "Une stratégie\nbâtie pour durer",
+      "description": "L'optimisation fiscale et la structuration patrimoniale sont des disciplines de précision. Notre cabinet vous accompagne dans la mise en œuvre de solutions adaptées à votre situation.",
+      "cta": "Découvrir nos expertises"
+    }
+  },
+  "tunnel": {
+    "calendlyUrl": ""
+  },
+  "leCabinet": {
+    "hero": {
+      "title": "Une expertise indépendante au service de votre patrimoine",
+      "subtitle": "SYLK Conseils est un cabinet de conseil en gestion de patrimoine dédié aux dirigeants, cadres supérieurs et familles."
+    },
+    "intro": "Fondé en 2019, SYLK Conseils accompagne une clientèle exigeante dans la structuration, la sécurisation et la transmission de leur patrimoine. Notre indépendance nous permet de recommander les solutions les plus adaptées à chaque situation, sans contrainte d'appartenance.",
+    "approach": {
+      "title": "Notre approche",
+      "paragraph1": "Chaque accompagnement débute par un diagnostic approfondi de votre situation patrimoniale, fiscale et familiale. Cette analyse nous permet d'identifier les leviers d'optimisation disponibles et de construire une stratégie cohérente avec vos objectifs.",
+      "paragraph2": "Notre méthodologie repose sur une ingénierie patrimoniale rigoureuse, combinant expertise juridique, fiscale et financière. Nous assurons un suivi régulier pour adapter la stratégie aux évolutions de votre situation personnelle et professionnelle."
+    },
+    "domains": {
+      "title": "Nos domaines d'intervention",
+      "paragraph": "Optimisation fiscale, structuration de holding, gestion de l'épargne et des investissements, préparation de la retraite, transmission du patrimoine professionnel et privé — notre cabinet intervient sur l'ensemble des dimensions de la gestion patrimoniale."
+    },
+    "closingLine": "Les décisions qui façonnent l'avenir se prennent aujourd'hui."
+  },
+  "expertises": {
+    "hero": {
+      "title": "Nos domaines d'expertise",
+      "subtitle": "Une ingénierie patrimoniale complète au service de vos objectifs."
+    },
+    "cardCta": "Découvrir",
+    "cards": [
+      {
+        "slug": "fiscalite",
+        "title": "Stratégie Fiscale",
+        "description": "Optimisation de la fiscalité des revenus, du patrimoine et de la transmission dans le respect du cadre légal."
+      },
+      {
+        "slug": "patrimoine",
+        "title": "Gestion de Patrimoine",
+        "description": "Structuration, sécurisation et diversification des actifs patrimoniaux."
+      },
+      {
+        "slug": "transmission",
+        "title": "Transmission",
+        "description": "Préparez et sécurisez la transmission de vos biens dans les meilleures conditions."
+      },
+      {
+        "slug": "retraite",
+        "title": "Retraite",
+        "description": "Anticipez et construisez une stratégie retraite adaptée à vos objectifs de vie."
+      }
+    ]
+  }
+}

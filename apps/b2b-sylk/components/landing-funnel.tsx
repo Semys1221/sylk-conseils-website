@@ -9,6 +9,8 @@ import { Testimonials } from "@workspace/tenant-ui";
 import tenantConfig from "@/tenant.config";
 import { FunnelFlow } from "@/components/funnel-flow/funnel-flow";
 import { useFunnelOverlayStore } from "@/lib/funnel-store";
+import type { HomePageContent } from "@/lib/cms/schema";
+import type { ResolvedHomeMedia } from "@/lib/cms/resolve-media";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -33,7 +35,15 @@ const scaleIn = {
   },
 };
 
-export function LandingFunnel() {
+export function LandingFunnel({
+  content,
+  media,
+  calendlyUrl,
+}: {
+  content: HomePageContent;
+  media: ResolvedHomeMedia;
+  calendlyUrl: string;
+}) {
   const [showFunnel, setShowFunnel] = useState(false);
   const setOnClose = useFunnelOverlayStore((s) => s.setOnClose);
 
@@ -69,7 +79,7 @@ export function LandingFunnel() {
             <section className="-mt-16 pt-16 grid grid-cols-1 lg:grid-cols-2 min-h-[100svh] bg-gradient-to-br from-[#0a0a0f] via-[#111827] to-[#1e3a8a]">
               <div className="relative w-full h-[50vh] lg:h-auto overflow-hidden">
                 <Image
-                  src="https://grzs6rqzvzupoxv9.public.blob.vercel-storage.com/stephane/stephane.jpeg"
+                  src={media.heroPortraitUrl}
                   alt="Stéphane Lawnicki"
                   fill
                   priority
@@ -80,10 +90,10 @@ export function LandingFunnel() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0f] via-[#0a0a0f]/20 lg:via-transparent to-[#0a0a0f]/20 lg:bg-gradient-to-t lg:from-[#0a0a0f]/60" />
                 <div className="absolute bottom-4 left-4 lg:bottom-8 lg:left-8 z-20 max-w-[80%]">
                   <div className="text-small tracking-[0.2em] font-mono text-white/70 uppercase mb-1 drop-shadow-md">
-                    CABINET SYLK CONSEILS
+                    {content.hero.imageLabel}
                   </div>
                   <p className="text-small text-white/80 tracking-wide drop-shadow-md leading-relaxed">
-                    Stéphane Lawnicki, Fondateur
+                    {content.hero.founderLine}
                   </p>
                 </div>
               </div>
@@ -110,23 +120,19 @@ export function LandingFunnel() {
                       </svg>
                     </span>
                     <span className="text-small font-semibold tracking-widest text-[#93C5FD] uppercase">
-                      Suivi par +3 000 personnes sur LinkedIn
+                      {content.hero.linkedinBadge}
                     </span>
                   </div>
 
                   <h1 className="heading-1 font-extralight tracking-tight mb-6 lg:mb-8 leading-[1.15]">
-                    Stratégie patrimoniale
+                    {content.hero.titleLine1}
                     <br />
                     <span className="font-serif italic text-blue-300 font-normal">
-                      et optimisation fiscale
+                      {content.hero.titleLine2}
                     </span>
                   </h1>
 
-                  <p className="text-lead text-slate-300 mb-10 lg:mb-12">
-                    Une expertise dédiée aux dirigeants, cadres supérieurs et familles souhaitant
-                    structurer, sécuriser et transmettre leur patrimoine dans un cadre juridique et
-                    fiscal maîtrisé.
-                  </p>
+                  <p className="text-lead text-slate-300 mb-10 lg:mb-12">{content.hero.subtitle}</p>
 
                   <div className="flex flex-col xs:flex-row items-stretch xs:items-center gap-4">
                     <button
@@ -136,7 +142,7 @@ export function LandingFunnel() {
                       <div className="bg-black text-white p-1.5 rounded-full w-6 h-6 flex items-center justify-center shrink-0">
                         <Calendar size={12} className="text-white" />
                       </div>
-                      Voir la vidéo
+                      {content.hero.ctaVideo}
                     </button>
                     <a
                       href={tenantConfig.linkedinUrl}
@@ -145,7 +151,7 @@ export function LandingFunnel() {
                       className="flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 transition-all text-white rounded-full px-6 py-3.5 text-sm font-medium border border-white/20 backdrop-blur-md w-full xs:w-auto"
                     >
                       <Linkedin size={16} className="text-[#0A66C2] fill-[#0A66C2]/10 shrink-0" />
-                      Découvrir le dirigeant
+                      {content.hero.ctaLinkedin}
                       <ArrowRight size={14} className="opacity-80 shrink-0" />
                     </a>
                   </div>
@@ -160,30 +166,27 @@ export function LandingFunnel() {
 
               <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center">
                 <div className="flex items-center gap-2 text-small font-semibold tracking-widest text-slate-400 uppercase mb-6 xs:mb-8">
-                  <span className="text-lead leading-none">◇</span> LE CABINET
+                  <span className="text-lead leading-none">◇</span> {content.cabinetSection.label}
                 </div>
 
                 <h2 className="heading-2 font-light text-[#1A1A1A] tracking-tight leading-[1.1] mb-16">
-                  Une expertise éprouvée
+                  {content.cabinetSection.title}
                 </h2>
 
                 <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 lg:gap-20 items-center text-left w-full">
                   <div className="lg:col-span-2 space-y-6">
                     <p className="text-lead text-slate-600 block leading-relaxed">
-                      Fondé en 2019, SYLK Conseils accompagne une clientèle de dirigeants, cadres
-                      supérieurs et familles dans la gestion et l&apos;optimisation de leur
-                      patrimoine.
+                      {content.cabinetSection.paragraph1}
                     </p>
                     <div className="h-px w-12 bg-slate-200"></div>
                     <p className="text-small text-slate-500 block leading-relaxed">
-                      Le cabinet s&apos;appuie sur une équipe de professionnels expérimentés et une
-                      méthodologie rigoureuse pour offrir un conseil indépendant et personnalisé.
+                      {content.cabinetSection.paragraph2}
                     </p>
                     <Link
                       href="/le-cabinet"
                       className="inline-flex items-center gap-3 bg-[#111111] hover:bg-black transition-all text-white rounded-full pl-6 pr-2 py-2 text-sm font-medium group mt-4"
                     >
-                      En savoir plus
+                      {content.cabinetSection.cta}
                       <div className="bg-white text-black p-1.5 rounded-full transition-transform group-hover:translate-x-1">
                         <ArrowRight size={14} />
                       </div>
@@ -191,32 +194,15 @@ export function LandingFunnel() {
                   </div>
 
                   <div className="lg:col-span-3 grid grid-cols-2 gap-4 lg:gap-6">
-                    <div className="bg-white p-6 lg:p-8 rounded-[24px] lg:rounded-[32px] border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                      <div className="heading-2 font-light text-[#1A1A1A] mb-3">
-                        10<span className="text-blue-600 font-normal">+</span>
+                    {content.stats.map((stat) => (
+                      <div
+                        key={stat.label}
+                        className="bg-white p-6 lg:p-8 rounded-[24px] lg:rounded-[32px] border border-gray-100 shadow-sm hover:shadow-md transition-shadow"
+                      >
+                        <div className="heading-2 font-light text-[#1A1A1A] mb-3">{stat.value}</div>
+                        <div className="text-small text-slate-500 font-light">{stat.label}</div>
                       </div>
-                      <div className="text-small text-slate-500 font-light">
-                        Années d&apos;expertise
-                      </div>
-                    </div>
-                    <div className="bg-white p-6 lg:p-8 rounded-[24px] lg:rounded-[32px] border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                      <div className="heading-2 font-light text-[#1A1A1A] mb-3">350</div>
-                      <div className="text-small text-slate-500 font-light">
-                        Clients accompagnés
-                      </div>
-                    </div>
-                    <div className="bg-white p-6 lg:p-8 rounded-[24px] lg:rounded-[32px] border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                      <div className="heading-2 font-light text-[#1A1A1A] mb-3">
-                        5<span className="text-blue-600 font-normal">+</span>
-                      </div>
-                      <div className="text-small text-slate-500 font-light">
-                        Classes d&apos;actifs
-                      </div>
-                    </div>
-                    <div className="bg-white p-6 lg:p-8 rounded-[24px] lg:rounded-[32px] border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                      <div className="heading-2 font-light text-[#1A1A1A] mb-3">5.0</div>
-                      <div className="text-small text-slate-500 font-light">Note moyenne</div>
-                    </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -226,7 +212,7 @@ export function LandingFunnel() {
             <section className="px-4 lg:px-8 max-w-[1600px] mx-auto mb-20 lg:mb-32">
               <div className="relative h-[500px] lg:h-[700px] rounded-[32px] overflow-hidden lg:rounded-[56px] bg-[#1a202c]">
                 <Image
-                  src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1600&auto=format&fit=crop"
+                  src={media.expertiseBannerImageUrl}
                   alt=""
                   fill
                   sizes="(max-width: 768px) 100vw, 80vw"
@@ -237,21 +223,22 @@ export function LandingFunnel() {
                 <div className="absolute inset-0 bg-gradient-to-r from-[#050B14]/60 via-[#050B14]/20 lg:via-transparent to-transparent" />
                 <div className="absolute inset-0 p-6 xs:p-8 lg:p-16 flex flex-col lg:flex-row justify-end lg:justify-between lg:items-end z-10 pb-8 xs:pb-12 lg:pb-16">
                   <h3 className="heading-1 text-white font-light tracking-tight leading-[1.05] mb-6 lg:mb-0 max-w-xl">
-                    Une stratégie
-                    <br />
-                    bâtie pour durer
+                    {content.expertiseBanner.title.split("\n").map((line, i, arr) => (
+                      <span key={line}>
+                        {line}
+                        {i < arr.length - 1 ? <br /> : null}
+                      </span>
+                    ))}
                   </h3>
                   <div className="lg:max-w-sm lg:ml-12 backdrop-blur-md bg-black/20 p-6 lg:p-0 rounded-2xl lg:bg-transparent border border-white/5 lg:border-none">
                     <p className="text-lead text-white/80 leading-relaxed mb-6 lg:mb-8">
-                      L&apos;optimisation fiscale et la structuration patrimoniale sont des
-                      disciplines de précision. Notre cabinet vous accompagne dans la mise en œuvre
-                      de solutions adaptées à votre situation.
+                      {content.expertiseBanner.description}
                     </p>
                     <Link
                       href="/expertises/fiscalite"
                       className="flex items-center gap-3 bg-white text-black hover:bg-gray-100 transition-all rounded-full pl-6 pr-2 py-2 text-sm font-medium w-fit group"
                     >
-                      Découvrir nos expertises
+                      {content.expertiseBanner.cta}
                       <div className="bg-black text-white p-1.5 rounded-full transition-transform group-hover:translate-x-1">
                         <ArrowRight size={14} />
                       </div>
@@ -277,7 +264,7 @@ export function LandingFunnel() {
             transition={{ duration: 0.25, ease: "easeOut" }}
             className="fixed inset-0 z-50"
           >
-            <FunnelFlow />
+            <FunnelFlow media={media} calendlyUrl={calendlyUrl} />
           </motion.div>
         )}
       </AnimatePresence>

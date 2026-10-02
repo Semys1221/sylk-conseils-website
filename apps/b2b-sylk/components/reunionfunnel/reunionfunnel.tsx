@@ -9,6 +9,7 @@ import { useFlowStore } from "./store";
 import { GlassCard } from "./glass-card";
 import { WelcomeStep } from "./welcome-step";
 import { IntroStep } from "./intro-step";
+import { FUNNEL_LOGO_URL } from "@/lib/brand-assets";
 
 const ConfigStep = dynamic(() => import("./config-step").then((m) => m.ConfigStep), {
   ssr: false,
@@ -27,9 +28,6 @@ const MeetingRoom = dynamic(() => import("./meeting-room").then((m) => m.Meeting
     </div>
   ),
 });
-
-const AVATAR_URL =
-  "https://grzs6rqzvzupoxv9.public.blob.vercel-storage.com/stephane/croped%20circle-stepahen.png";
 
 export function ReunionFunnel() {
   const step = useFlowStore((s) => s.step);
@@ -111,7 +109,7 @@ export function ReunionFunnel() {
       <div className="fixed top-8 left-8 z-40 hidden md:flex items-center gap-2.5">
         <Link href="/" className="flex items-center gap-2.5 group">
           <Image
-            src={AVATAR_URL}
+            src={FUNNEL_LOGO_URL}
             alt="SYLK Conseils"
             width={28}
             height={28}

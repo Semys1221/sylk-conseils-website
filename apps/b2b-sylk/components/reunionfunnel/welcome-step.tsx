@@ -1,9 +1,7 @@
 "use client";
 
 import Image from "next/image";
-
-const AVATAR_URL =
-  "https://grzs6rqzvzupoxv9.public.blob.vercel-storage.com/stephane/croped%20circle-stepahen.png";
+import { FUNNEL_LOGO_URL } from "@/lib/brand-assets";
 
 interface WelcomeStepProps {
   onContinue: () => void;
@@ -16,7 +14,7 @@ export function WelcomeStep({ onContinue }: WelcomeStepProps) {
         <div className="relative shrink-0">
           <div className="absolute -inset-2 rounded-full bg-blue-500/20 blur-md" />
           <Image
-            src={AVATAR_URL}
+            src={FUNNEL_LOGO_URL}
             alt="SYLK Conseils"
             width={40}
             height={40}

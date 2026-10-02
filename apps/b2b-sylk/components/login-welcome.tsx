@@ -2,9 +2,7 @@
 
 import { motion } from "motion/react";
 import Image from "next/image";
-
-const SYLK_LOGO =
-  "https://grzs6rqzvzupoxv9.public.blob.vercel-storage.com/stephane/croped%20circle-stepahen.png";
+import { FUNNEL_LOGO_URL } from "@/lib/brand-assets";
 
 export function WelcomeStep({ onContinue }: { onContinue: () => void }) {
   return (
@@ -34,7 +32,7 @@ export function WelcomeStep({ onContinue }: { onContinue: () => void }) {
           <div className="flex flex-col items-start gap-3 mt-auto lg:items-center">
             <div className="flex items-center gap-3 mb-1">
               <img
-                src={SYLK_LOGO}
+                src={FUNNEL_LOGO_URL}
                 alt="SYLK Conseils"
                 className="w-9 h-9 rounded-full ring-1 ring-white/20"
               />

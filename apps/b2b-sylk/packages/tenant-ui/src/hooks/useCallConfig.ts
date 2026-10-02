@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { createClient } from "@supabase/supabase-js";
 
 export interface CallConfigCategory {
   key: string;
@@ -76,30 +75,8 @@ export function useCallConfig(tenantId: string) {
 
     void load();
 
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL ?? "http://localhost:54321",
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "not-set"
-    );
-
-    const channel = supabase
-      .channel("call_config_realtime")
-      .on(
-        "postgres_changes",
-        {
-          event: "*",
-          schema: "public",
-          table: "call_config",
-          filter: `tenant_id=eq.${tenantId}`,
-        },
-        () => {
-          void load();
-        }
-      )
-      .subscribe();
-
     return () => {
       cancelled = true;
-      supabase.removeChannel(channel);
     };
   }, [tenantId]);
 

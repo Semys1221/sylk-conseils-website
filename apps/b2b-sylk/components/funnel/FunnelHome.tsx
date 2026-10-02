@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import MuxVideo from "@mux/mux-video-react";
 import { useFunnel, MeshBackground } from "@workspace/tenant-ui";
+import { FUNNEL_LOGO_URL } from "@/lib/brand-assets";
 import tenantConfig from "@/tenant.config";
 
 export function FunnelHome({ onStart }: { onStart?: () => void }) {
@@ -73,7 +74,7 @@ export function FunnelHome({ onStart }: { onStart?: () => void }) {
                   className="flex items-center gap-4 bg-white text-deep-800 px-8 py-4 rounded-full font-semibold hover:bg-gray-100 transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-2xl group"
                 >
                   <img
-                    src="https://grzs6rqzvzupoxv9.public.blob.vercel-storage.com/stephane/croped%20circle-stepahen.png"
+                    src={FUNNEL_LOGO_URL}
                     alt="SYLK Conseils"
                     className="w-8 h-8 object-contain rounded-full shadow-md"
                   />

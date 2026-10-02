@@ -2,9 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
-
-const LOGO =
-  "https://grzs6rqzvzupoxv9.public.blob.vercel-storage.com/stephane/croped%20circle-stepahen.png";
+import { FUNNEL_LOGO_URL } from "@/lib/brand-assets";
 
 export function LoginPhoneLoading({ onComplete }: { onComplete: () => void }) {
   const [show, setShow] = useState(false);
@@ -39,7 +37,7 @@ export function LoginPhoneLoading({ onComplete }: { onComplete: () => void }) {
 
               {/* Logo */}
               <div className="w-10 h-10 rounded-xl overflow-hidden shadow-[0_0_0_1px_rgba(255,255,255,0.08)] mb-4">
-                <img src={LOGO} alt="" className="w-full h-full object-cover" />
+                <img src={FUNNEL_LOGO_URL} alt="" className="w-full h-full object-cover" />
               </div>
 
               {/* Loading text */}

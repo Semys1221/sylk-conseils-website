@@ -1,25 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-type ServiceId = "supabase" | "pusher" | "n8n" | "cal" | "daily" | "posthog";
-
-async function testSupabase(): Promise<{ ok: boolean; message: string }> {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || url.includes("localhost") || !key || key === "not-set") {
-    return { ok: false, message: "Variables non configurées" };
-  }
-  try {
-    const res = await fetch(`${url}/rest/v1/`, {
-      headers: { apikey: key, Authorization: `Bearer ${key}` },
-      signal: AbortSignal.timeout(5000),
-    });
-    return res.ok || res.status === 400
-      ? { ok: true, message: `HTTP ${res.status}` }
-      : { ok: false, message: `HTTP ${res.status}` };
-  } catch (e) {
-    return { ok: false, message: String(e) };
-  }
-}
+type ServiceId = "pusher" | "n8n" | "cal" | "daily" | "posthog";
 
 async function testPusher(): Promise<{ ok: boolean; message: string }> {
   const appId = process.env.NEXT_PUBLIC_PUSHER_APP_ID;
@@ -28,7 +9,6 @@ async function testPusher(): Promise<{ ok: boolean; message: string }> {
   if (!appId || !key || !secret || secret === "not-set") {
     return { ok: false, message: "Variables non configurées" };
   }
-  // Pusher credentials exist and are non-empty \u2014 verify format
   const isValid = appId.length > 0 && key.length > 0 && secret.length > 0;
   return isValid
     ? { ok: true, message: "Credentials présents" }
@@ -96,9 +76,6 @@ export async function GET(request: NextRequest) {
   let result: { ok: boolean; message: string };
 
   switch (service) {
-    case "supabase":
-      result = await testSupabase();
-      break;
     case "pusher":
       result = await testPusher();
       break;

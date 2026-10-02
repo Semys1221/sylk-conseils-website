@@ -3,16 +3,10 @@
 import { useState, useEffect } from "react";
 import { Calendar, ShieldCheck, CheckCircle2, Loader2, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
-import { createClient } from "@supabase/supabase-js";
 import { useTenant } from "../../tenant-config";
 import { ProgressionCircle } from "./ProgressionCircle";
 import { FunnelEligible } from "./FunnelEligible";
 import type { FunnelOption, FunnelStep } from "../../tenant-config";
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-const supabaseKey =
-  process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 type ResultType = "qualified" | "eligible" | "disqualified";
 
@@ -49,48 +43,13 @@ export function FunnelDiagnostic({ onBack }: FunnelDiagnosticProps) {
       Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15)
     );
 
-    const fetchConfig = async () => {
-      const { data, error } = await supabase
-        .from("funnel_config")
-        .select("config")
-        .eq("tenant_id", funnel.tenantId)
-        .single();
-
-      let steps: FunnelStep[] = [];
-      if (!error && data?.config?.steps) {
-        steps = data.config.steps;
-      } else if (funnel.steps.length > 0) {
-        steps = funnel.steps;
-      }
-
-      setStepsConfig(steps);
-
-      if (steps.length > 0) {
-        setCurrentStepId(steps[0].id);
-        setPhase("question");
-      }
-
-      setLoadingConfig(false);
-    };
-
-    fetchConfig();
-
-    const channel = supabase
-      .channel(`funnel-${funnel.tenantId}`)
-      .on(
-        "postgres_changes",
-        { event: "UPDATE", schema: "public", table: "funnel_config" },
-        (payload) => {
-          if (payload.new.tenant_id === funnel.tenantId && payload.new.config?.steps) {
-            setStepsConfig(payload.new.config.steps);
-          }
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
+    const steps: FunnelStep[] = funnel.steps.length > 0 ? funnel.steps : [];
+    setStepsConfig(steps);
+    if (steps.length > 0) {
+      setCurrentStepId(steps[0].id);
+      setPhase("question");
+    }
+    setLoadingConfig(false);
   }, [funnel.tenantId, funnel.steps]);
 
   const syncStepToAdmin = (stepNumber: number, newAnswers: Record<string, string>) => {

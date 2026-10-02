@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist } from "next/font/google";
+import { BRAND_ICON_URL } from "@/lib/brand-assets";
 import "./globals.css";
 
 const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
@@ -34,11 +35,9 @@ export const metadata: Metadata = {
     description: "Cabinet d'expertise comptable et de conseil stratégique.",
   },
   icons: {
-    icon: "https://grzs6rqzvzupoxv9.public.blob.vercel-storage.com/stephane/croped%20circle-stepahen.png",
-    shortcut:
-      "https://grzs6rqzvzupoxv9.public.blob.vercel-storage.com/stephane/croped%20circle-stepahen.png",
-    apple:
-      "https://grzs6rqzvzupoxv9.public.blob.vercel-storage.com/stephane/croped%20circle-stepahen.png",
+    icon: BRAND_ICON_URL,
+    shortcut: BRAND_ICON_URL,
+    apple: BRAND_ICON_URL,
   },
   robots: {
     index: true,

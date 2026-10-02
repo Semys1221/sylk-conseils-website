@@ -2,37 +2,28 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@supabase/supabase-js";
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AdminSidebar } from "./AdminSidebar";
+import { clearAdminSession, getAdminSession } from "../../lib/admin-session";
 
 export function AdminLayout({ children }: { children: React.ReactNode }) {
   const [authenticated, setAuthenticated] = useState<boolean | null>(null);
   const [user, setUser] = useState<{ name: string; email: string } | null>(null);
   const router = useRouter();
 
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL ?? "",
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "",
-    { auth: { persistSession: true, autoRefreshToken: true, detectSessionInUrl: false } }
-  );
-
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      if (session?.user) {
-        const email = session.user.email ?? "";
-        const name = (session.user.user_metadata?.full_name as string) ?? email;
-        setAuthenticated(true);
-        setUser({ name, email });
-      } else {
-        setAuthenticated(false);
-        router.replace("/login");
-      }
-    });
-  }, []);
+    const session = getAdminSession();
+    if (session?.email) {
+      setAuthenticated(true);
+      setUser({ name: session.name || session.email, email: session.email });
+    } else {
+      setAuthenticated(false);
+      router.replace("/login");
+    }
+  }, [router]);
 
   const handleSignOut = async () => {
-    await supabase.auth.signOut();
+    clearAdminSession();
     router.push("/login");
   };
 

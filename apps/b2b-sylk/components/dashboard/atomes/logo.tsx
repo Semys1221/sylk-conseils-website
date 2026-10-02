@@ -1,3 +1,4 @@
+import { FUNNEL_LOGO_URL } from "@/lib/brand-assets";
 import { cn } from "@/lib/utils";
 
 export function Logo({
@@ -15,7 +16,7 @@ export function Logo({
   return (
     <div className={cn("flex items-center gap-2.5", className)}>
       <img
-        src="https://grzs6rqzvzupoxv9.public.blob.vercel-storage.com/stephane/croped%20circle-stepahen.png"
+        src={FUNNEL_LOGO_URL}
         alt="SYLK Conseils"
         className={cn(
           imgSize,

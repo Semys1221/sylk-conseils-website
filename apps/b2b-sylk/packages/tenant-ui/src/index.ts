@@ -4,6 +4,13 @@ export type { TenantConfig, FunnelStep, FunnelOption, FunnelContent, Slide } fro
 
 // Utils
 export { cn } from "./lib/utils";
+export {
+  ADMIN_SESSION_KEY,
+  getAdminSession,
+  setAdminSession,
+  clearAdminSession,
+} from "./lib/admin-session";
+export type { AdminSession } from "./lib/admin-session";
 
 // Components
 export { TenantRoot } from "./components/TenantRoot";

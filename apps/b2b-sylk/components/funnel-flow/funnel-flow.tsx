@@ -4,15 +4,11 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { VolumeX, Calendar } from "lucide-react";
 import tenantConfig from "@/tenant.config";
+import type { ResolvedHomeMedia } from "@/lib/cms/resolve-media";
 import { useFunnelOverlayStore } from "@/lib/funnel-store";
 import { useFlowStore } from "./store";
 import { GlassCard } from "./glass-card";
 import { QualificationForm } from "./qualification-form";
-
-const VIDEO_URL =
-  "https://grzs6rqzvzupoxv9.public.blob.vercel-storage.com/stephane/video-cgp-O0OlUjKJ9a3ANp5QObDKMsVvd56zvz.mp4";
-const POSTER_URL =
-  "https://image.mux.com/601I74ydXCKONbHE02Sz00NPIYZJNk6usdBL00q77FwUkvw/thumbnail.jpg";
 
 const slideLeft = {
   initial: { opacity: 0, x: 60 },
@@ -20,7 +16,12 @@ const slideLeft = {
   exit: { opacity: 0, x: -60 },
 };
 
-export function FunnelFlow() {
+type FunnelFlowProps = {
+  media: ResolvedHomeMedia;
+  calendlyUrl: string;
+};
+
+export function FunnelFlow({ media, calendlyUrl }: FunnelFlowProps) {
   const step = useFlowStore((s) => s.step);
   const advance = useFlowStore((s) => s.advance);
   const setStep = useFlowStore((s) => s.setStep);
@@ -74,8 +75,8 @@ export function FunnelFlow() {
 
   const handleContinue = useCallback(() => {
     setTransitioning(true);
-    window.location.href = tenantConfig.calendlyUrl;
-  }, []);
+    window.location.href = calendlyUrl;
+  }, [calendlyUrl]);
 
   const handleBack = useCallback(() => {
     if (step === "welcome") {
@@ -153,7 +154,7 @@ export function FunnelFlow() {
         className="fixed top-6 left-6 z-40 hidden md:flex items-center gap-2.5 group"
       >
         <img
-          src="https://grzs6rqzvzupoxv9.public.blob.vercel-storage.com/stephane/croped%20circle-stepahen.png"
+          src={media.funnelLogoUrl}
           alt="SYLK Conseils"
           className="w-7 h-7 rounded-full ring-1 ring-slate-400/30 group-hover:ring-slate-400/60 transition-all"
         />
@@ -249,7 +250,7 @@ export function FunnelFlow() {
                         className="absolute top-3 left-3 z-10 flex items-center gap-2"
                       >
                         <img
-                          src="https://grzs6rqzvzupoxv9.public.blob.vercel-storage.com/stephane/croped%20circle-stepahen.png"
+                          src={media.funnelLogoUrl}
                           alt="SYLK Conseils"
                           className="w-6 h-6 rounded-full ring-1 ring-white/40"
                         />
@@ -287,7 +288,7 @@ export function FunnelFlow() {
                             className="absolute inset-0 z-10"
                           >
                             <img
-                              src={POSTER_URL}
+                              src={media.funnelVideoPosterUrl}
                               alt=""
                               className="w-full h-full object-cover blur-sm scale-105"
                             />
@@ -296,7 +297,7 @@ export function FunnelFlow() {
                       </AnimatePresence>
                       <video
                         ref={videoRef as React.RefObject<HTMLVideoElement>}
-                        src={VIDEO_URL}
+                        src={media.funnelVideoUrl}
                         autoPlay
                         muted={isMuted}
                         controls={false}
@@ -424,7 +425,7 @@ export function FunnelFlow() {
                   {!calendlyBookingDone && (
                     <iframe
                       ref={calendlyRef}
-                      src={tenantConfig.calendlyUrl}
+                      src={calendlyUrl}
                       className="w-full h-full"
                       style={{ minHeight: "500px" }}
                       frameBorder="0"

@@ -15,8 +15,7 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
     timeout: 120000,
     env: {
-      NEXT_PUBLIC_SUPABASE_URL: "https://test.supabase.co",
-      NEXT_PUBLIC_SUPABASE_ANON_KEY: "test-anon-key",
+      ADMIN_PIN: "test-pin",
       NEXT_PUBLIC_POSTHOG_KEY: "test-ph-key",
       NEXT_PUBLIC_POSTHOG_HOST: "https://test.posthog.com",
       NEXT_PUBLIC_TENANT_ID: "sylk-conseils",

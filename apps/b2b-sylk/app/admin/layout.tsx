@@ -24,15 +24,13 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { FUNNEL_LOGO_URL } from "@/lib/brand-assets";
 import { LayoutDashboard, TrendingUp, Calendar, Globe, Settings, RefreshCw } from "lucide-react";
 
 const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-serif",
 });
-
-const SYLK_LOGO =
-  "https://grzs6rqzvzupoxv9.public.blob.vercel-storage.com/stephane/croped%20circle-stepahen.png";
 
 const PAGE_TITLE: Record<AdminView, string> = {
   accueil: "Tableau de bord",
@@ -66,7 +64,7 @@ function UserSelection({ onSelect }: { onSelect: (user: SelectedUser) => void })
         <div className="relative z-10 flex flex-col items-center gap-10">
           <div className="flex flex-col items-center gap-3 text-center">
             <img
-              src={SYLK_LOGO}
+              src={FUNNEL_LOGO_URL}
               alt="SYLK Conseils"
               className="w-16 h-16 rounded-full ring-2 ring-white/10 shadow-lg"
             />

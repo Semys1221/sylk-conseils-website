@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { QualificationForm } from "@/components/funnel-flow/qualification-form";
+import { FUNNEL_LOGO_URL } from "@/lib/brand-assets";
 
 function QualificationContent() {
   const searchParams = useSearchParams();
@@ -25,7 +26,7 @@ function QualificationContent() {
     <div className="w-full max-w-md">
       <div className="flex justify-center mb-8">
         <img
-          src="https://grzs6rqzvzupoxv9.public.blob.vercel-storage.com/stephane/croped%20circle-stepahen.png"
+          src={FUNNEL_LOGO_URL}
           alt="SYLK Conseils"
           className="w-14 h-14 rounded-full ring-1 ring-white/10"
         />

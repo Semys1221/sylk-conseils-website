@@ -6,10 +6,8 @@ import { motion, AnimatePresence } from "motion/react";
 import { ArrowUpRight } from "lucide-react";
 import { LoginPhoneLoading } from "@/components/login-phone-loading";
 import { WelcomeStep } from "@/components/login-welcome";
+import { FUNNEL_LOGO_URL } from "@/lib/brand-assets";
 import { useLoginFlowStore } from "@/lib/login-flow-store";
-
-const LOGO =
-  "https://grzs6rqzvzupoxv9.public.blob.vercel-storage.com/stephane/croped%20circle-stepahen.png";
 
 function InstallStep({ onContinue, onInstall }: { onContinue: () => void; onInstall: () => void }) {
   return (
@@ -27,7 +25,7 @@ function InstallStep({ onContinue, onInstall }: { onContinue: () => void; onInst
         transition={{ type: "spring", stiffness: 180, damping: 14 }}
       >
         <div className="w-24 h-24 rounded-[1.4rem] bg-gradient-to-br from-blue-950 to-cyan-950 border border-slate-700/50 shadow-[0_0_40px_rgba(8,47,73,0.5)] flex items-center justify-center overflow-hidden">
-          <img src={LOGO} alt="SYLK Conseils" className="w-16 h-16 object-cover rounded-full" />
+          <img src={FUNNEL_LOGO_URL} alt="SYLK Conseils" className="w-16 h-16 object-cover rounded-full" />
         </div>
       </motion.div>
 

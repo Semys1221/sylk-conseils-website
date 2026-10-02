@@ -2,14 +2,11 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { useAdminStore, type AdminView } from "@workspace/tenant-ui";
+import { getAdminSession, useAdminStore, type AdminView } from "@workspace/tenant-ui";
 import tenantConfig from "@/tenant.config";
-import { LayoutDashboard, Globe, TrendingUp, Calendar, Settings, LogOut } from "lucide-react";
-
-const SYLK_LOGO =
-  "https://grzs6rqzvzupoxv9.public.blob.vercel-storage.com/stephane/croped%20circle-stepahen.png";
+import { FUNNEL_LOGO_URL } from "@/lib/brand-assets";
+import { LayoutDashboard, Globe, TrendingUp, Calendar, Settings } from "lucide-react";
 
 const NAV: { id: AdminView; label: string; icon: typeof LayoutDashboard }[] = [
   { id: "accueil", label: "Accueil", icon: LayoutDashboard },
@@ -24,25 +21,18 @@ export function LayoutDashboardAdmin({ children }: { children: React.ReactNode }
   const [user, setUser] = useState<{ email: string } | null>(null);
   const router = useRouter();
 
-  const supabase = createClient();
   const { activeView, setActiveView } = useAdminStore();
 
   useEffect(() => {
-    (async () => {
-      const res = (await supabase.auth.getSession()) as {
-        data: { session: import("@supabase/supabase-js").AuthSession | null } | null;
-      };
-      const session = res.data?.session ?? null;
-      if (session?.user) {
-        const email = session.user.email ?? "";
-        setAuthenticated(true);
-        setUser({ email });
-      } else {
-        setAuthenticated(false);
-        router.replace("/login");
-      }
-    })();
-  }, []);
+    const session = getAdminSession();
+    if (session?.email) {
+      setAuthenticated(true);
+      setUser({ email: session.email });
+    } else {
+      setAuthenticated(false);
+      router.replace("/login");
+    }
+  }, [router]);
 
   if (authenticated === null) {
     return (
@@ -71,7 +61,7 @@ export function LayoutDashboardAdmin({ children }: { children: React.ReactNode }
             <Settings size={20} />
           </button>
           <Avatar className="w-8 h-8 rounded-full ring-2 ring-slate-800/60">
-            <AvatarImage src={SYLK_LOGO} alt={tenantConfig.name} />
+            <AvatarImage src={FUNNEL_LOGO_URL} alt={tenantConfig.name} />
             <AvatarFallback className="bg-gradient-to-br from-blue-900 to-cyan-800 text-white text-[10px] font-bold">
               {user.email.slice(0, 2).toUpperCase()}
             </AvatarFallback>
