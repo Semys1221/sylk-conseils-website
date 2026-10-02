@@ -1,0 +1,6 @@
+{
+  "name": "Sylk Conseils",
+  "description": "Cabinet de conseil en gestion de patrimoine et stratégie fiscale",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

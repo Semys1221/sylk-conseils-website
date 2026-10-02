@@ -1,0 +1,10 @@
+{
+  "name": "@workspace/eslint-config",
+  "version": "0.1.0",
+  "private": true,
+  "main": "index.mjs",
+  "peerDependencies": {
+    "eslint": "^9.13.0",
+    "eslint-config-next": "16.0.8"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "installCommand": "npm install",
+  "buildCommand": "cd packages/shared-types && npx tsc && cd ../.. && npx next build",
+  "outputDirectory": ".next",
+  "framework": "nextjs"
+}
