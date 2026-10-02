@@ -1,5 +1,16 @@
 .vercel
 .env*
 !.env.example
+
+# dependencies & build
+node_modules/
+.next/
+out/
+dist/
+
+# debug & OS
+*.log
+.DS_Store
+!.env.example
 node_modules/
 .next/
